@@ -10,7 +10,8 @@ exports.config =
           'vendor/scripts/console-helper.js',
           'vendor/scripts/jquery-1.11.2.js',
           'vendor/scripts/underscore.js',
-          'vendor/scripts/backbone.js'
+          'vendor/scripts/backbone.js',
+          'vendor/scripts/rsvp.min.js'
         ]
 
     stylesheets:

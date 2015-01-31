@@ -1,6 +1,6 @@
-template = require './templates/application'
+template = require './templates/home'
 
-class ApplicationView extends Backbone.View
+class MainView extends Backbone.View
 	template : template
 	el       : "#application-container"
 	
@@ -12,6 +12,6 @@ class ApplicationView extends Backbone.View
 	render : ()=>
 		$('body').append(@template({project_name: @project_name}))
 
-module.exports = ApplicationView
+module.exports = MainView
 
 	
