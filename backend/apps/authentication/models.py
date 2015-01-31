@@ -38,20 +38,17 @@ class SocialAccount(models.Model):
             )
 
     user            = models.ForeignKey(SocialUser, related_name='accounts')
-    acc_type        = models.IntegerField(_('Account Type'), choices=ACCOUNT_TYPES)
+    account_type    = models.IntegerField(_('Account Type'), choices=ACCOUNT_TYPES)
     account_uid     = models.CharField(_('Account\'s User Id'), max_length=255, blank=True, null=True)
     access_token    = models.CharField(_('Access Token'), max_length=255, blank=True, null=True)
     refresh_token   = models.CharField(_('Refresh Token'), max_length=255, blank=True, null=True)
-    unauth_token    = models.CharField(_('Unauth Token'), max_length=255, blank=False, null=False)
+    unauth_token    = models.CharField(_('Unauth Token'), max_length=255)
     oauth_version   = models.IntegerField(_('OAuth Version'), choices=OAUTH_VERSIONS)
-
 
     def save(self, *args, **kwargs):
         if self.acc_type == self.TWITTER:
             self.oauth_version = 1
 
-        if not self.unauth_token:
-            raise Exception
-
+        self.full_clean()
         super(SocialAccount, self).save(*args, **kwargs)
 
