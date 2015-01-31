@@ -1,6 +1,5 @@
 App = require('application')
 
 $ ->
-	application = new App()
-	application.initialize()
+	App.initialize()
 	Backbone.history.start()

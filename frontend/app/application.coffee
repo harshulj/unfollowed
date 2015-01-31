@@ -1,7 +1,8 @@
 
 Router = require 'router'
 
-class App 
+App = 
+	event : _.extend({}, Backbone.Events)
 	initialize : ->
 		@router = new Router()
 
