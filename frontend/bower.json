@@ -1,0 +1,23 @@
+{
+  "name": "brunch-with-backbone",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dhruvparmar372/brunch-with-backbone",
+  "authors": [
+    "Dhruv Parmar <dhruv.parmar@housing.com>"
+  ],
+  "description": "Skelton for starting a backbone application using Brunch. Includes SASS, Handlebars, FontAwesome, Prefixfree.",
+  "keywords": [
+    "brunch"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "prefixfree": "*"
+  }
+}
