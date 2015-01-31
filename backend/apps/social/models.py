@@ -39,3 +39,32 @@ class Connection(models.Model):
                     Account is of account_type %s, connection is of account_type %s" % (self.account.account_type,self.connection.account_type))
 
         super(Connection,self).save(*args, **kwargs)
+
+class Action(models.Model):
+    '''
+        A social action between two social profiles.
+    '''
+    UNFOLLOW = 0
+    FOLLOW = 1
+
+    ACTION_TYPES = (
+        (UNFOLLOW, "Unfollow"),
+        (FOLLOW, "Follow")
+    )
+    # todo add validation that actions can only be of the type supported by
+    # the platform of the actor and subject
+    action_type     = models.IntegerField(choices=ACTION_TYPES)
+    actor           = models.ForeignKey(SocialProfile, related_name="actions")
+    subject         = models.ForeignKey(SocialProfile, related_name="actions_as_subject")
+    when            = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        '''
+            The actor and subject must be on the same platform
+        '''
+        if self.actor.account_type != self.subject.account_type:
+            raise ValidationError("Cannot have an action across platforms. \
+                    actor is of account_type %s, subject is of account_type %s" \
+                    % (self.actor.account_type,self.subject.account_type))
+
+        super(Connection,self).save(*args, **kwargs)
