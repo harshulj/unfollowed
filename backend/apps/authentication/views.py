@@ -7,7 +7,7 @@ import cgi
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
 from utils import supported_methods, twitter_post_auth
@@ -27,7 +27,7 @@ def twitter_auth_init(request):
     client = oauth2.Client(consumer)
 
     # Get a request token for this flow instance.
-    resp, content = client.request(urls["request_token"]. "GET")
+    resp, content = client.request(urls["request_token"], "GET")
 
     if resp["status"] != '200':
         raise Exception("Invalid response from twitter for request_token. Check app credentials")
@@ -43,7 +43,8 @@ def twitter_auth_init(request):
 @supported_methods("GET")
 def twitter_auth_callback(request):
     if request.user.is_authenticated():
-        raise Exception("Only twitter is supported. User cannot be logged in at this stage")
+        #"Only twitter is supported. User cannot be logged in at this stage"
+        return HttpResponseRedirect(settings.SPA_INDEX)
 
     # prepare the client and the urls
     creds = settings.APP_CREDENTIALS["twitter"]
@@ -67,8 +68,8 @@ def twitter_auth_callback(request):
         # there was not oauth_token, so basically someone tried hitting directly
         return HttpResponseRedirect(reverse(twitter_auth_init))
 
+    token.set_verifier(verifier)
     client = oauth2.Client(consumer, token)
-    client.set_verifier(verifier)
 
     # get the authorized access token from twitter
     response, content = client.request(settings.OAUTH_URLS["twitter"]["access_token"], "GET")
@@ -79,11 +80,12 @@ def twitter_auth_callback(request):
     access_data = dict(cgi.parse_qsl(content))
 
     # Handle post_authentication flow
-    social_account = twitter_post_auth(access_data["user_id"], access_data["screen_name"],
+    social_account = twitter_post_auth(request, access_data["user_id"], access_data["screen_name"],
             access_data["oauth_token"],access_data["oauth_token_secret"])
 
     if not request.user.is_authenticated():
-        login(request, social_account.user)
+        user = authenticate(username=social_account.user.username, password=social_account.token_secret)
+        login(request, user)
 
     return HttpResponseRedirect(settings.SPA_INDEX)
 

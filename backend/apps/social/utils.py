@@ -5,6 +5,7 @@
 import tweepy
 from models import SocialProfile
 from apps.authentication.models import SocialAccount
+from django.conf import settings
 
 def get_twitter_api(access_token, token_secret):
 	'''

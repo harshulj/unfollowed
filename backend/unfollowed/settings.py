@@ -51,10 +51,6 @@ MIDDLEWARE_CLASSES = (
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         )
 
-AUTHENTICATION_BACKENDS = (
-        'apps.auth.backends.SocialAuthBackend',
-        )
-
 ROOT_URLCONF = 'unfollowed.urls'
 
 WSGI_APPLICATION = 'unfollowed.wsgi.application'
@@ -109,7 +105,7 @@ OAUTH_URLS = {
     }
 }
 
-APP_CREDNTIALS = {
+APP_CREDENTIALS = {
     "twitter" : {
         "key" : "2thk9BzFT10uUkwtr68qxyiBB",
         "secret" : "bBn52W8c4E4mQN4dq8UTautewS2oC6QoBw0A93mlNuDPafgrmi"

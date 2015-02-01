@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.contrib.auth import models
+from django.contrib.auth.models import User
 from django.conf import settings
 
 from apps.social.utils import create_social_profile
@@ -19,7 +19,7 @@ def supported_methods(*args):
 	return decorator
 
 
-def twitter_post_auth(userid, screen_name, access_token, token_secret):
+def twitter_post_auth(request, userid, screen_name, access_token, token_secret):
 	'''
 		Handles user flow post authentication for twitter.
 	'''
@@ -29,9 +29,9 @@ def twitter_post_auth(userid, screen_name, access_token, token_secret):
 		account = None
 
 	if account is None:		# new user register him
-		if not request.user.is_authenticated()
+		if not request.user.is_authenticated():
 			# should always happen till other platforms are not supported
-			user = User.objects.create(screen_name, screen_name+"@twitter.com", token_secret)
+			user = User.objects.create_user(screen_name, screen_name+"@twitter.com", token_secret)
 		else:
 			#should only happen if other services are supported and twitter was connected later
 			user = request.user

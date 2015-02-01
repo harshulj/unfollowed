@@ -16,5 +16,5 @@ urlpatterns += static.static(settings.STATIC_URL, document_root=settings.STATIC_
 
 index_url = "/static/index.html"
 urlpatterns += patterns('',
-    url(r'^', RedirectView.as_view(url=index_url, permanent=False)),
+    url(r'^/?$', RedirectView.as_view(url=index_url, permanent=False)),
 )
