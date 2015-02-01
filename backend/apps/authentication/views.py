@@ -7,6 +7,8 @@ import cgi
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 
 from utils import supported_methods, twitter_post_auth
 
@@ -15,6 +17,9 @@ def twitter_auth_init(request):
     '''
         Initiate authentication with twitter
     '''
+    if request.user.is_authenticated():
+        raise Exception("Only twitter is supported. User cannot be logged in at this stage")
+
     #prepare client for making requests to twitter
     creds = settings.APP_CREDENTIALS["twitter"]
     urls = settings.OAUTH_URLS["twitter"]
@@ -37,6 +42,9 @@ def twitter_auth_init(request):
 
 @supported_methods("GET")
 def twitter_auth_callback(request):
+    if request.user.is_authenticated():
+        raise Exception("Only twitter is supported. User cannot be logged in at this stage")
+
     # prepare the client and the urls
     creds = settings.APP_CREDENTIALS["twitter"]
     consumer = oauth2.Consumer(creds["key"], creds["secret"])
@@ -68,7 +76,19 @@ def twitter_auth_callback(request):
     if response["status"] != "200":
         return HttpResponse("Error Authenticating with twitter, invalid tokens supplied", 400)
 
-    access_token_data = dict(cgi.parse_qsl(content))
+    access_data = dict(cgi.parse_qsl(content))
 
     # Handle post_authentication flow
-    return twitter_post_auth(access_token_data)
+    social_account = twitter_post_auth(access_data["user_id"], access_data["screen_name"],
+            access_data["oauth_token"],access_data["oauth_token_secret"])
+
+    if not request.user.is_authenticated():
+        login(request, social_account.user)
+
+    return HttpResponseRedirect(settings.SPA_INDEX)
+
+
+@login_required
+def logout(request):
+    logout(request)
+    return HttpResponseRedirect('/')

@@ -23,8 +23,12 @@ class SocialAccount(models.Model):
     account_uid     = models.CharField(_('Account\'s User Id'), max_length=255, blank=True, null=True)
     access_token    = models.CharField(_('Access Token'), max_length=255, blank=True, null=True)
     refresh_token   = models.CharField(_('Refresh Token'), max_length=255, blank=True, null=True)
+    token_secret    = models.CharField(_('Access token secret'), max_length=255)
     unauth_token    = models.CharField(_('Unauth Token'), max_length=255)
     oauth_version   = models.IntegerField(_('OAuth Version'), choices=OAUTH_VERSIONS)
+
+    class Meta:
+        unique_together = [("account_type", "account_uid")]
 
     def save(self, *args, **kwargs):
         if self.acc_type == self.TWITTER:

@@ -115,3 +115,5 @@ APP_CREDNTIALS = {
         "secret" : "bBn52W8c4E4mQN4dq8UTautewS2oC6QoBw0A93mlNuDPafgrmi"
     }
 }
+
+SPA_INDEX = STATIC_URL+"index.html"
