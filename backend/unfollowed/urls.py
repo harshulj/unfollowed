@@ -3,6 +3,8 @@ from django.conf.urls import patterns, include, url, static
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 
+from common.views import main_router
+
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'unfollowed.views.home', name='home'),
@@ -16,5 +18,5 @@ urlpatterns += static.static(settings.STATIC_URL, document_root=settings.STATIC_
 
 index_url = "/static/index.html"
 urlpatterns += patterns('',
-    url(r'^/?$', RedirectView.as_view(url=index_url, permanent=False)),
+    url(r'^/?$', main_router),
 )

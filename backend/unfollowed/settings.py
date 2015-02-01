@@ -38,7 +38,8 @@ INSTALLED_APPS = (
         'django.contrib.staticfiles',
         'apps.authentication',
         'apps.social',
-        'rest_framework'
+        'rest_framework',
+        'common'
         )
 
 MIDDLEWARE_CLASSES = (
@@ -113,3 +114,4 @@ APP_CREDENTIALS = {
 }
 
 SPA_INDEX = STATIC_URL+"index.html"
+LANDING_PAGE_URL = STATIC_URL+"landing.html"

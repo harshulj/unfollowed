@@ -91,7 +91,6 @@ def twitter_auth_callback(request):
     return HttpResponseRedirect(settings.SPA_INDEX)
 
 
-@login_required
 def app_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
