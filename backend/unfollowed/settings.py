@@ -101,3 +101,17 @@ STATICFILES_DIRS = (
 
 
 #AUTH_USER_MODEL = 'authentication.SocialUser'
+OAUTH_URLS = {
+    "twitter" : {
+        "request_token" : "https://api.twitter.com/oauth/request_token",
+        "authenticate"  : "https://api.twitter.com/oauth/authenticate",
+        "access_token"  : "https://api.twitter.com/oauth/access_token"
+    }
+}
+
+APP_CREDNTIALS = {
+    "twitter" : {
+        "key" : "2thk9BzFT10uUkwtr68qxyiBB",
+        "secret" : "bBn52W8c4E4mQN4dq8UTautewS2oC6QoBw0A93mlNuDPafgrmi"
+    }
+}
