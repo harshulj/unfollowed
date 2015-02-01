@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.contrib.auth import models
 from django.conf import settings
-import tweepy
 
 from apps.social.utils import create_social_profile
 from models import SocialAccount
@@ -19,22 +18,6 @@ def supported_methods(*args):
 
 	return decorator
 
-def get_twitter_api(access_token, token_secret):
-	'''
-		Create an API client for twitter
-
-		Can be used in crawlers as well.
-	'''
-	creds = settings.APP_CREDENTIALS["twitter"]
-	auth_handler = tweepy.OAuthHandler(creds["key"], creds["secret"])
-	auth_handler.secure = True
-	auth.set_access_token(access_token, token_secret)
-	api = tweepy.API(auth)
-	return api
-
-def get_twitter_user_details(access_token, token_secret):
-	api = get_twitter_api(access_token, token_secret)
-	return api.me()
 
 def twitter_post_auth(userid, screen_name, access_token, token_secret):
 	'''
