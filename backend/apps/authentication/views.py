@@ -18,7 +18,8 @@ def twitter_auth_init(request):
         Initiate authentication with twitter
     '''
     if request.user.is_authenticated():
-        raise Exception("Only twitter is supported. User cannot be logged in at this stage")
+        return HttpResponseRedirect(settings.SPA_INDEX)
+        #"Only twitter is supported. User cannot be logged in at this stage"
 
     #prepare client for making requests to twitter
     creds = settings.APP_CREDENTIALS["twitter"]
@@ -91,6 +92,6 @@ def twitter_auth_callback(request):
 
 
 @login_required
-def logout(request):
+def app_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
