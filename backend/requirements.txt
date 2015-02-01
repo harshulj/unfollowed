@@ -5,4 +5,9 @@ djangorestframework==3.0.4
 httplib2==0.9
 mysql==0.0.1
 oauth2==1.5.211
+oauthlib==0.7.2
+requests==2.4.3
+requests-oauthlib==0.4.1
+six==1.7.3
+tweepy==3.2.0
 wsgiref==0.1.2
