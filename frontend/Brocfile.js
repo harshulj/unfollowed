@@ -4,6 +4,10 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 var app = new EmberApp();
 
+app.import('vendor/stylesheets/reset.css');
+app.import('bower_components/font-awesome/css/font-awesome.min.css');
+
+app.import("bower_components/prefixfree/prefixfree.min.js");
 // Use `app.import` to add additional libraries to the generated
 // output files.
 //
