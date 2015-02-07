@@ -7,7 +7,8 @@ from common.views import main_router
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^auth/', include('apps.authentication.urls'))
+    url(r'^auth/', include('apps.authentication.urls')),
+    url(r'^', include('apps.social.urls'))
 )
 
 urlpatterns += patterns('',

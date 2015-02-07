@@ -7,14 +7,14 @@ class SocialProfile(models.Model):
     '''
         Model of a user's social profile on a platform.
     '''
-    account_type    = models.IntegerField(choices = auth_models.SocialAccount.ACCOUNT_TYPES) 
+    account_type    = models.IntegerField(choices = auth_models.SocialAccount.ACCOUNT_TYPES)
     userid          = models.CharField(max_length=255)
     name            = models.CharField(max_length=255)
     username        = models.CharField(max_length=255, blank=True, null=True)
     email           = models.EmailField(blank=True, null=True)
     picture         = models.URLField(max_length=500, blank=True, null=True)
-    social_account  = models.ForeignKey(auth_models.SocialAccount, blank = True, 
-                        null=True, on_delete = models.SET_NULL, related_name="profiles")
+    social_account  = models.OneToOneField(auth_models.SocialAccount, blank = True,
+                        null=True, on_delete = models.SET_NULL, related_name="profile")
 
     class Meta:
         unique_together = [("account_type","userid")]
