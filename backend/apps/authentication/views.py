@@ -36,7 +36,7 @@ def twitter_auth_init(request):
     # this will be needed later in callback from twitter
     request.session['request_token'] = dict(cgi.parse_qsl(content))
 
-    redirect_url = "%s?oauth_token=%s" % (urls["authenticate"], 
+    redirect_url = "%s?oauth_token=%s" % (urls["authenticate"],
                 request.session['request_token']['oauth_token'])
 
     return HttpResponseRedirect(redirect_url)
@@ -88,7 +88,7 @@ def twitter_auth_callback(request):
         user = authenticate(username=social_account.user.username, password=social_account.token_secret)
         login(request, user)
 
-    return HttpResponseRedirect(settings.SPA_INDEX)
+    return HttpResponseRedirect(reverse('main_router'))
 
 
 def app_logout(request):

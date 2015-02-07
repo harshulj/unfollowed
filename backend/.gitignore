@@ -2,6 +2,10 @@
 __pycache__/
 *.py[cod]
 
+
+# For frontend which is linked to frontend.
+dist
+
 # C extensions
 *.so
 

@@ -54,10 +54,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/assets/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "dist/assets"),
 )
 
 
@@ -77,5 +77,9 @@ APP_CREDENTIALS = {
     }
 }
 
-SPA_INDEX = STATIC_URL+"index.html"
-LANDING_PAGE_URL = STATIC_URL+"landing.html"
+SPA_INDEX = "index.html"
+LANDING_PAGE_URL = "landing.html"
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, "dist"),
+)
