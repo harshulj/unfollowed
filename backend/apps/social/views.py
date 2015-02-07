@@ -7,7 +7,7 @@ from apps.authentication.models import SocialAccount
 def current_user(request):
     if not request.user.is_authenticated():
         error = {'message': 'User unauthenticated.', 'code': 401}
-        return Response({'errors': [error]})
+        return Response({'errors': [error]}, status_code=403)
 
     if request.method == 'GET':
         account = SocialAccount.objects.filter(user=request.user, account_type=SocialAccount.TWITTER)[0]
@@ -19,3 +19,6 @@ def current_user(request):
         data['email']       = profile.email
         data['profiles']    = []
         return Response({'_data': data})
+
+    elif request.method == 'POST':
+        return Response({}, status_code=204)
