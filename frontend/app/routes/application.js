@@ -4,7 +4,7 @@ export default Ember.Route.extend({
 	actions: {
 		error: function(e){
 			console.log(e,'error occured');
-			if(e.status === 404)
+			if(e.status === 401)
 				//reload the page and hit index if any errors occur due to unauthorized state of user.
 				window.open("/","_self"); 
 			else
