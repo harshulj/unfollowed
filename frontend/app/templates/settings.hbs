@@ -1,0 +1,12 @@
+{{#link-to 'index'}}back to feed{{/link-to}}
+{{#if model.email}}
+	Your current email is {{model.email}}
+{{/if}}
+You can update your email here. 
+<form id='update-user-details' {{action 'updateUser' on='submit'}}>
+	{{input value=new_email placeholder='Enter Email' type='email' required='true'}}
+	{{input type='submit' value='update'}}
+</form>
+
+{{#if model.isSaving}}<i class='fa fa-spinner fa-spin'></i>{{/if}}
+{{#if model.isError}}there was some error in saving{{/if}}
