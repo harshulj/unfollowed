@@ -2,7 +2,34 @@ from django.db import models
 from apps.authentication import models as auth_models
 from django.core.exceptions import ValidationError
 
-# Create your models here.
+from .utils import get_twitter_user_followers
+
+
+class SocialProfileManager(models.Manager):
+    '''
+        Manager for performing actions on SocialProfile
+    '''
+
+    def create_or_update_twitter_profile(self, social_account, user_details):
+	profile = {}
+        profile['name'] = user_details.name
+	profile['username'] = user_details.screen_name
+	profile['email'] = user_details.screen_name+"@twitter.com"
+	profile['picture'] = user_details.profile_image_url
+	profile['social_account'] = social_account
+        profile['json'] = user_details._json
+
+        account_type = social_account.account_type if social_account else auth_models.SocialAccount.TWITTER
+        profile, created = self.update_or_create(userid=str(user_details.id),
+			account_type=account_type, defaults=profile)
+
+
+    def create_twitter_profile_for_followers(self, social_account):
+        users = get_twitter_user_followers(social_account.access_token, social_account.token_secret)
+
+        for user_details in users:
+            self.create_or_update_twitter_profile(None, user_details)
+
 class SocialProfile(models.Model):
     '''
         Model of a user's social profile on a platform.
@@ -15,6 +42,9 @@ class SocialProfile(models.Model):
     picture         = models.URLField(max_length=500, blank=True, null=True)
     social_account  = models.OneToOneField(auth_models.SocialAccount, blank = True,
                         null=True, on_delete = models.SET_NULL, related_name="profile")
+    json            = models.CharField(max_length='10000', blank=True)
+
+    objects         = SocialProfileManager()
 
     class Meta:
         unique_together = [("account_type","userid")]
