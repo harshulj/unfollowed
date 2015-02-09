@@ -5,5 +5,8 @@ export default DS.Model.extend({
 	name     : DS.attr('string'),
 	username : DS.attr('string'),
 	picture  : DS.attr('string'),
-	email    : DS.attr('string')
+	email    : DS.attr('string'),
+	handle : (function(){
+		return "@"+this.get('username');
+	}).property('username')
 });

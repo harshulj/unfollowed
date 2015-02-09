@@ -9,6 +9,8 @@ export default DS.RESTSerializer.extend({
 	},
 	extractArray : function(store, type, payload){
 		var data = {};
+		if(!Ember.isArray(payload._data))
+			payload._data = [payload._data];
 		data[Ember.String.pluralize(type.typeKey)] = payload._data;
 		return this._super(store, type, data);
 	}
