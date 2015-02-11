@@ -7,6 +7,7 @@ var app = new EmberApp();
 app.import('vendor/stylesheets/reset.css');
 app.import('vendor/stylesheets/font-awesome.min.css');
 
+app.import("vendor/scripts/jquery.cookie.js");
 app.import("bower_components/prefixfree/prefixfree.min.js");
 // Use `app.import` to add additional libraries to the generated
 // output files.

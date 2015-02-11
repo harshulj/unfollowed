@@ -13,4 +13,17 @@ var App = Ember.Application.extend({
 
 loadInitializers(App, config.modulePrefix);
 
+$(function(){
+	if($.cookie && typeof $.cookie === 'function'){
+		var token = $.cookie('csrftoken');
+	  	$.ajaxPrefilter(function(options, originalOptions, xhr){
+	    	if(["PUT","POST"].indexOf(originalOptions.type)!=-1) //set for PUT/POST requests only
+	    		xhr.setRequestHeader('X-CSRF-Token', token)
+	  	});	
+	}
+	else
+		console.log("cookie plugin not found. PUT/POST requests might not work.");
+	
+});
+
 export default App;
