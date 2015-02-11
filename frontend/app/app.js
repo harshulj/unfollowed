@@ -18,7 +18,7 @@ $(function(){
 		var token = $.cookie('csrftoken');
 	  	$.ajaxPrefilter(function(options, originalOptions, xhr){
 	    	if(["PUT","POST"].indexOf(originalOptions.type)!=-1) //set for PUT/POST requests only
-	    		xhr.setRequestHeader('X-CSRF-Token', token)
+	    		xhr.setRequestHeader('X-CSRFToken', token)
 	  	});	
 	}
 	else
