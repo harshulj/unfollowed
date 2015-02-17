@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.conf import settings
 
+from apps.social.models import SocialAccount
 from apps.social.utils import create_or_update_social_profile
-from models import SocialAccount
 
 def supported_methods(*args):
     '''
@@ -36,10 +36,10 @@ def twitter_post_auth(request, userid, screen_name, access_token, token_secret):
             #should only happen if other services are supported and twitter was connected later
             user = request.user
 
-            account = SocialAccount.objects.create(user=user,account_type=SocialAccount.TWITTER,
+        account = SocialAccount.objects.create(user=user,account_type=SocialAccount.TWITTER,
                     account_uid=userid, access_token=access_token,token_secret=token_secret,
                     oauth_version=SocialAccount.OAUTH_1)
 
-            # get all details for the user and create a profile for him
+    # get all details for the user and create/update a profile for him
     create_or_update_social_profile(account)
     return account

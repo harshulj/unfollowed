@@ -3,7 +3,6 @@
 '''
 
 import tweepy
-from apps.authentication.models import SocialAccount
 from django.conf import settings
 
 
@@ -39,12 +38,20 @@ def create_or_update_social_profile_twitter(social_account):
         SocialProfile.objects.create_or_update_twitter_profile(social_account, user_details)
         # Todo : queue a task to fetch all follower data
 
+        # Update User's first and last name
+        #TODO Move it to someplace better
+        name_arr = user_details.name.split(" ")
+        social_account.user.first_name = first_name = name_arr[0]
+        social_account.user.last_name = " ".join(name_arr[1:])
+        social_account.user.save()
+
 def create_or_update_social_profile(social_account):
 	'''
 		Creates a social profile for the specified social account
 
 		social_account is expected to be an instance of authentication.models.SocialAccount
 	'''
+        from .models import SocialAccount
 	helpers = {
 		SocialAccount.TWITTER : create_or_update_social_profile_twitter
 	}
