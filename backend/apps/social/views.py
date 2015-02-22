@@ -51,6 +51,7 @@ def profiles(request, account_type, action):
             data = []
             for profile in profiles:
                 profile_dict = {}
+                profile_dict['id'] = profile.id
                 profile_dict['name'] = profile.name
                 profile_dict['username'] = profile.username
                 profile_dict['url'] = ''
