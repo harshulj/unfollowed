@@ -6,8 +6,40 @@ html {
   box-sizing: inherit;
 }
 
-html,body {
+html,body,#application-container {
 	position    : relative;
 	height      : 100%;
 	font-family : 'Open Sans';
+	overflow    : hidden;
+	font-size   : @regular-text;
 }
+#main-content {
+	.position(absolute,0,0,0,@side-nav-width);
+}
+
+.header-item { height: @header-height; }
+
+//Overflow and Scrolls
+.no-overflow { overflow: hidden; }
+.vertical-scroll-only {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+//Floats
+.pull-left { float: left; }
+.pull-right { float: right; }
+.group:after {
+	content : "";
+	display : table;
+	clear   : both;
+}
+
+//Display
+.block-middle { display: inline-block; vertical-align: middle; }
+
+//Text Transforms
+.capitalized {text-transform: capitalize;}
+.uppercased {text-transform: uppercase;}
+
+
