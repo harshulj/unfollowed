@@ -41,7 +41,23 @@ def user(request, user_id=None):
 
 
 @api_view(['GET'])
-def followers(request, user_id):
+def profiles(request, account_type, action):
     if request.method == 'GET':
+        user = request.user
 
-        return Response({})
+        if user.is_authenticated():
+            account = user.accounts.first()
+            profiles = account.connections.filter()
+            data = []
+            for profile in profiles:
+                profile_dict = {}
+                profile_dict['name'] = profile.name
+                profile_dict['username'] = profile.username
+                profile_dict['url'] = ''
+                profile_dict['picture'] = profile.picture
+                profile_dict['action'] = action
+                profile_dict['action_time'] = ''
+                data.append(profile_dict)
+            return Response({'_data': data})
+        else:
+            return Response({}, code=403)

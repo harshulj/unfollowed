@@ -12,6 +12,14 @@ class SocialAccountManager(models.Manager):
     def update_twitter_connections(self):
         pass
 
+    def create_twitter_profile_for_followers(self):
+        social_account = self.get_queryset().first()
+        users = get_twitter_user_followers(social_account.access_token, social_account.token_secret)
+
+        for user_details in users:
+            profile = SocialProfile.objects.create_or_update_twitter_profile(None, user_details)
+            conn, created = Connection.objects.get_or_create(account=social_account, connection=profile)
+
 
 class SocialAccount(models.Model):
 
@@ -35,6 +43,7 @@ class SocialAccount(models.Model):
     token_secret    = models.CharField(_('Access token secret'), max_length=255, blank=True, null=True)
     unauth_token    = models.CharField(_('Unauth Token'), max_length=255, blank = True, null=True)
     oauth_version   = models.IntegerField(_('OAuth Version'), choices=OAUTH_VERSIONS)
+    connections     = models.ManyToManyField('SocialProfile', through='Connection')
 
     objects         = SocialAccountManager()
 
@@ -67,13 +76,8 @@ class SocialProfileManager(models.Manager):
         account_type = social_account.account_type if social_account else SocialAccount.TWITTER
         profile, created = self.update_or_create(userid=str(user_details.id),
 			account_type=account_type, defaults=profile)
+        return profile
 
-
-    def create_twitter_profile_for_followers(self, social_account):
-        users = get_twitter_user_followers(social_account.access_token, social_account.token_secret)
-
-        for user_details in users:
-            self.create_or_update_twitter_profile(None, user_details)
 
 class SocialProfile(models.Model):
     '''
@@ -99,7 +103,7 @@ class Connection(models.Model):
         Model of a connection between a user and other profiles on a
         social network
     '''
-    account         = models.ForeignKey(SocialAccount, related_name="connections")
+    account         = models.ForeignKey(SocialAccount)
     connection      = models.ForeignKey(SocialProfile, related_name="connections")
 
     class Meta:
