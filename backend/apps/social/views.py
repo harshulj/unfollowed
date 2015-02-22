@@ -60,4 +60,5 @@ def profiles(request, account_type, action):
                 data.append(profile_dict)
             return Response({'_data': data})
         else:
-            return Response({}, code=403)
+            error = {'message': 'User unauthenticated.', 'code': 403}
+            return Response({'errors': [error]}, status=403)
