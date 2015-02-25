@@ -6,6 +6,7 @@ export default DS.Model.extend({
 	username : DS.attr('string'),
 	picture  : DS.attr('string'),
 	email    : DS.attr('string'),
+	profiles : DS.attr('raw'),
 	handle : (function(){
 		//for now prepend '@' as we have only twitter users. 
 		return "@"+this.get('username');

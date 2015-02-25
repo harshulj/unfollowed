@@ -8,6 +8,7 @@ var Router = Ember.Router.extend({
 Router.map(function() {
 	this.resource('user',{path:'/:user_handle'},function(){
 		this.route("settings", { path: "/settings"});
+		this.route("feedback", { path: "/feedback"});
 	});
 	this.route('catchall', {path: '/*wildcard'});
 });

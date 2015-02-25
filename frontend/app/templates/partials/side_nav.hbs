@@ -14,14 +14,16 @@
 		<ul class='side-nav-list'>
 			<li class='side-nav-list-item list-header'>COMPANY</li>
 			<li class='side-nav-list-item'>Help</li>
-			<li class='side-nav-list-item'>Feedback</li>
+			<li class='side-nav-list-item'>
+				{{#link-to 'user.feedback' classNames='side-nav-link'}}Feedback{{/link-to}}
+			</li>
 		</ul>
 	</div>
 	<div id='user-info-box' class='group'>
-		<img {{bind-attr src=picture}} class='user-profile-pic block-middle'>
+		<img {{bind-attr src=model.picture}} class='user-profile-pic block-middle'>
 		<div class='user-info block-middle'>
-			<div class='name'>{{name}}</div>
-			<div class='handle'>{{handle}}</div>
+			<div class='name'>{{model.name}}</div>
+			<div class='handle'>{{model.handle}}</div>
 		</div>
 	</div>
 </div>
