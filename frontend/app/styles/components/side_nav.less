@@ -1,8 +1,10 @@
+#side-nav-toggle { display: none; }
 #side-nav {
 	.position(absolute,0,0,0,0);
 	width      : @side-nav-width;
 	background : @grey;
 	z-index    : 2;
+	.transition();
 	&::-webkit-scrollbar { display: none; } //hide scroll bar for side nav
 }
 
@@ -88,4 +90,13 @@
 		.transition(color);
 		&.active,&:hover { color : #fff; }
 	}
+}
+
+@media (max-width:@side-nav-break-width){
+	#side-nav-toggle { 
+		display: inline-block; 
+		margin-right: 10px; 
+	}
+	#side-nav { left: -@side-nav-width; transform: translateX(0); }
+	#application-container.side-nav-on #side-nav{ transform: translateX(@side-nav-width); }
 }

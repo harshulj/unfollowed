@@ -79,3 +79,13 @@ html,body,#application-container {
 .remove{ display: none; }
 
 
+@media (max-width:@side-nav-break-width){
+	#main-content { 
+		left: 0; 
+		transform: translateX(0); 
+		.transition(); 
+	}
+	#application-container.side-nav-on #main-content{ transform: translateX(@side-nav-width); }
+}
+
+

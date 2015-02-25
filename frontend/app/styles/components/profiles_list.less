@@ -1,14 +1,13 @@
 #profiles-list {
 	height         : 100%;
 	overflow-y     : auto;
-	padding        : 0.75%;
 	padding-bottom : @header-height;
+	padding-left   : 1%;
 	background     : @dark-white;
-	>.profile.twitter {
-		min-width  : 20%;
-		padding    : 1%;
+	>.profile {
 		background : inherit;
 		position   : relative;
+		margin     : 1% 1% 0 0;
 		>.image-box {
 			position    : relative;
 			width       : 100%;
@@ -18,10 +17,11 @@
 		>.profile-info {
 			margin-top : 10px; 
 			font-size  : @small-text;
+			line-height: @small-text+2;
 			>.name { font-weight: 600; }
 			>.handle { 
 				color      : @text-grey; 
-				margin-top : 5px; 
+				margin-top : 2px; 
 				font-size  : @small-text - 1;
 			}
 		}
@@ -57,5 +57,28 @@
 }
 
 @media (min-width: 1024px){
-	#profiles-list >.profile { width: 20%; }
+	#profiles-list >.profile { width  : 19%; }
+}
+
+@media (max-width:1023px) and (min-width:801px) {
+	#profiles-list >.profile { width  : 24%; }
+}
+
+@media (max-width:800px) and (min-width:500px) {
+	#profiles-list {
+		padding-left : 2.33%;
+		>.profile { 
+			width  : 31%;
+			margin : 2.33% 2.33% 0 0;
+		}
+	}	
+}
+@media (max-width:499px) and (min-width:280px) {
+	#profiles-list {
+		padding-left : 2%;
+		>.profile { 
+			width  : 48%;
+			margin : 2% 2% 0 0;
+		}
+	}	
 }
