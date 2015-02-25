@@ -41,3 +41,15 @@
 	border-top-right-radius : @border-radius;
 	border-top-left-radius  : @border-radius;
 }
+
+.transition(@property:all,@duration:0.25s,@easing:ease-in-out){
+	transition : @property @duration @easing;
+}
+
+.filter(@filter-radius){
+	-webkit-filter      : blur(@filter-radius);
+	-moz-filter         : blur(@filter-radius);
+	-ms-filter          : blur(@filter-radius);
+	-o-filter           : blur(@filter-radius);
+	filter              : blur(@filter-radius);
+}

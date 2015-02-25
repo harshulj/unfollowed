@@ -24,7 +24,10 @@ module.exports = function(environment) {
 
     APP: {
       apihost      : "http://127.0.0.1:8000",
-      apinamespace : "api/v1"
+      apinamespace : "api/v1",
+      profile_url_prefix_map : {
+        'twitter' : 'https://twitter.com/'
+      }
       // Here you can pass flags/options to your application instance
       // when it is created
     }

@@ -3,7 +3,9 @@
 	<div id='side-nav-wrapper' class='vertical-scroll-only'>
 		<ul class='side-nav-list'>
 			<li class='side-nav-list-item list-header'>MAIN</li>
-			<li class='side-nav-list-item'>Followers</li>
+			<li class='side-nav-list-item'>
+				{{#link-to 'user.index' classNames='side-nav-link'}}Followers{{/link-to}}
+			</li>
 			<li class='side-nav-list-item'>Unfollowers</li>
 			<li class='side-nav-list-item'>
 				{{#link-to 'user.settings' classNames='side-nav-link'}}Settings{{/link-to}}

@@ -1,0 +1,51 @@
+#profiles-list {
+	height         : 100%;
+	overflow-y     : auto;
+	padding-bottom : @header-height;
+	>.profile.twitter {
+		min-width  : 20%;
+		padding    : 20px;
+		background : @dark-white;
+		position   : relative;
+		>.image-box {
+			position    : relative;
+			width       : 100%;
+			padding-top : 100%;
+			.no-overflow;
+		}
+		>.profile-info {
+			margin-top : 5px; 
+			font-size  : @small-text;
+			>.name { font-weight: bold; }
+			>.handle { color: @text-grey; margin-top: 3px; }
+		}
+		>.profile-link {
+			display : block;
+			z-index : 3;
+			.position(absolute,0,0,0,0);
+		}
+	}
+	
+	.hover-text {.position(absolute)}
+
+	.profile-pic {
+		z-index : 2;
+		.rounded-box;
+	}
+
+	.blur-background {
+		background-size     : cover;
+		background-position : center;
+		.filter(5px);
+		.position(absolute,0,0,0,0);
+	}
+	.blur-content { 
+		background : rgba(0,0,0,0.50);
+		.position(absolute,0,0,0,0); 
+		.rounded-box; 
+	}
+}
+
+@media (min-width: 1024px){
+	#profiles-list >.profile { width: 20%; }
+}

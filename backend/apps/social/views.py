@@ -58,6 +58,7 @@ def profiles(request, account_type, action):
                 profile_dict['picture'] = profile.picture
                 profile_dict['action'] = action
                 profile_dict['action_time'] = ''
+                profile_dict['json'] = profile.json
                 data.append(profile_dict)
             return Response({'_data': data})
         else:

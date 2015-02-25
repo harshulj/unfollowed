@@ -1,1 +1,17 @@
-Yo
+<ul id='profiles-list' class="group">
+	{{#each profile in profiles}}
+		<li {{bind-attr class=":profile :pull-left profile.network"}}>
+			<div class='image-box'>
+				<img class='profile-pic centered-in-parent' {{bind-attr src=profile.picture}}>
+				<div class='blur-background' {{bind-attr style="profile.cover_url"}}></div>
+				<div class='blur-content'></div>
+				<div class='hover-text'>{{profile.description}}</div>
+			</div>
+			<div class='profile-info'>
+				<div class='name'>{{profile.name}}</div>
+				<div class='handle'>{{profile.user_handle}}</div>
+			</div>
+			<a class='profile-link' {{bind-attr href="profile.profile_url"}} target="_blank"></a>
+		</li>
+	{{/each}}
+</ul>

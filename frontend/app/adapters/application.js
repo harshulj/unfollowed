@@ -1,6 +1,6 @@
 import DS from "ember-data";
 import Ember from 'ember';
-import AppENV from "../config/environment";
+import AppENV from 'unfollwed/config/environment';
 
 export default DS.RESTAdapter.extend({
 	host                 : AppENV.APP.apihost,

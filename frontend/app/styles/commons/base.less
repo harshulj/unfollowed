@@ -42,4 +42,23 @@ html,body,#application-container {
 .capitalized {text-transform: capitalize;}
 .uppercased {text-transform: uppercase;}
 
+//Mouse Pointers
+.clickable { 
+	cursor: pointer; 
+	cursor: hand; 
+}
+
+//Actionable components become clickable
+[data-ember-action] {
+	.clickable;
+}
+
+//Centering
+.centered-in-parent {
+	position  : absolute;
+	top       : 50%;
+	left      : 50%;
+	transform : translate3d(-50%,-50%,0);
+}
+
 

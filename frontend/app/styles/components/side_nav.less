@@ -45,11 +45,13 @@
 			.uppercased;
 			font-size      : @tiny-text;
 			color          : #4E5659;
-			padding-bottom : 2px;	
+			padding-bottom : 5px;	
 		}
 	}
 	a.side-nav-link {
 		text-decoration : none;
 		color           : inherit;
+		.transition(color);
+		&.active,&:hover { color : #fff; }
 	}
 }
