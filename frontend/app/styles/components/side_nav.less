@@ -26,12 +26,25 @@
 	}
 	.name { color: #fff; }
 	.handle { color: @text-grey; }
+	.user-menu-toggle {
+		line-height  : @user-info-box-height;
+		color        : #fff;
+		margin-right : 15px;
+	}
 }
 
 #side-nav-wrapper {
 	.position(absolute,0,0,0,0);
 	margin     : @header-height 0 @user-info-box-height;
 	padding    : 0 25px;
+}
+
+#user-menu {
+	background : #fff;
+	border     : 1px solid @border-grey;
+	.rounded-box;
+	.transition(opacity);
+	.position(absolute,-100px,0);
 }
 
 .side-nav-list {

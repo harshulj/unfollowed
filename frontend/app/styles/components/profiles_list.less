@@ -1,11 +1,13 @@
 #profiles-list {
 	height         : 100%;
 	overflow-y     : auto;
+	padding        : 0.75%;
 	padding-bottom : @header-height;
+	background     : @dark-white;
 	>.profile.twitter {
 		min-width  : 20%;
-		padding    : 20px;
-		background : @dark-white;
+		padding    : 1%;
+		background : inherit;
 		position   : relative;
 		>.image-box {
 			position    : relative;
@@ -14,35 +16,43 @@
 			.no-overflow;
 		}
 		>.profile-info {
-			margin-top : 5px; 
+			margin-top : 10px; 
 			font-size  : @small-text;
-			>.name { font-weight: bold; }
-			>.handle { color: @text-grey; margin-top: 3px; }
+			>.name { font-weight: 600; }
+			>.handle { 
+				color      : @text-grey; 
+				margin-top : 5px; 
+				font-size  : @small-text - 1;
+			}
 		}
 		>.profile-link {
 			display : block;
 			z-index : 3;
-			.position(absolute,0,0,0,0);
+			.position(absolute,4%,4%,4%,4%);
 		}
 	}
 	
 	.hover-text {.position(absolute)}
 
 	.profile-pic {
-		z-index : 2;
-		.rounded-box;
+		border-radius : 3px;
+		height        : 64px;
+		width         : 64px;
+		border        : 1px solid #fff;
+		z-index       : 2;
+		.rounded-box(3px);
 	}
 
 	.blur-background {
 		background-size     : cover;
 		background-position : center;
-		.filter(5px);
+		.filter(20px);
 		.position(absolute,0,0,0,0);
 	}
 	.blur-content { 
 		background : rgba(0,0,0,0.50);
 		.position(absolute,0,0,0,0); 
-		.rounded-box; 
+		.rounded-box(3px); 
 	}
 }
 
