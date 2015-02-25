@@ -10,5 +10,9 @@ export default DS.Model.extend({
 	handle : (function(){
 		//for now prepend '@' as we have only twitter users. 
 		return "@"+this.get('username');
-	}).property('username')
+	}).property('username'),
+	prof_pic_original : (function(){
+		//hardcoded for twitter logged in user. change later.
+		return this.get('picture').replace("_normal","");
+	}).property('picture')
 });

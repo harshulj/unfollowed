@@ -19,11 +19,16 @@ export default DS.Model.extend({
 		return "";
 	}).property('username','network'),
 	user_handle : (function(){
-		if(this.get('network')=='twitter')
+		if(this.get('network')==='twitter')
 			return "@"+this.get('username');
 		return this.get('username');
 	}).property('network','username'),
 	cover_url : (function(){
 		return "background-image: url("+this.get('banner_url')+");";
-	}).property('banner_url')
+	}).property('banner_url'),
+	prof_pic_original : (function(){
+		if(this.get('network')==='twitter')
+			return this.get('picture').replace("_normal","");
+		return this.get('picture');
+	}).property('network','picture')
 });
