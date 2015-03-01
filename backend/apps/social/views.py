@@ -23,8 +23,10 @@ def user(request, user_id=None):
         data['id']          = user.id
         data['name']        = user.get_full_name()
         data['username']    = user.username
+        data['description'] = profile.description
         data['picture']     = profile.picture
         data['email']       = user.email
+        data['profile_banner_url'] = profile.profile_banner_url
         data['profiles']    = []
         return Response({'_data': data}, status=200)
 
@@ -54,8 +56,10 @@ def profiles(request, account_type, action):
                 profile_dict['id'] = profile.id
                 profile_dict['name'] = profile.name
                 profile_dict['username'] = profile.username
+                profile_dict['description'] = profile.description
                 profile_dict['url'] = ''
                 profile_dict['picture'] = profile.picture
+                profile_dict['profile_banner_url'] = profile.profile_banner_url
                 profile_dict['action'] = action
                 profile_dict['action_time'] = ''
                 profile_dict['json'] = profile.json

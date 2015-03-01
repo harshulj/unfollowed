@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -70,6 +69,8 @@ class SocialProfileManager(models.Manager):
 	profile['username'] = user_details.screen_name
 	profile['email'] = user_details.screen_name+"@twitter.com"
 	profile['picture'] = user_details.profile_image_url
+        profile['description'] = user_details.description
+        profile['profile_banner_url'] = user_details.profile_banner_url if hasattr(user_details, 'profile_banner_url') else ""
 	profile['social_account'] = social_account
         profile['json'] = user_details._json
 
@@ -83,17 +84,19 @@ class SocialProfile(models.Model):
     '''
         Model of a user's social profile on a platform.
     '''
-    account_type    = models.IntegerField(choices = SocialAccount.ACCOUNT_TYPES)
-    userid          = models.CharField(max_length=255)
-    name            = models.CharField(max_length=255)
-    username        = models.CharField(max_length=255, blank=True, null=True)
-    email           = models.EmailField(blank=True, null=True)
-    picture         = models.URLField(max_length=500, blank=True, null=True)
-    social_account  = models.OneToOneField(SocialAccount, blank = True,
+    account_type        = models.IntegerField(choices = SocialAccount.ACCOUNT_TYPES)
+    userid              = models.CharField(max_length=255)
+    name                = models.CharField(max_length=255)
+    username            = models.CharField(max_length=255, blank=True, null=True)
+    email               = models.EmailField(blank=True, null=True)
+    description         = models.CharField(max_length=255, default=True)
+    picture             = models.URLField(max_length=500, blank=True, null=True)
+    profile_banner_url  = models.URLField(max_length=500, blank=True, null=True)
+    social_account       = models.OneToOneField(SocialAccount, blank = True,
                         null=True, on_delete = models.SET_NULL, related_name="profile")
-    json            = models.CharField(max_length='10000', blank=True)
+    json                 = models.CharField(max_length='10000', blank=True)
 
-    objects         = SocialProfileManager()
+    objects             = SocialProfileManager()
 
     class Meta:
         unique_together = [("account_type","userid")]
